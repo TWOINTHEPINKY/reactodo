@@ -1,13 +1,4 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## Основные отличия от обычной версии (без React)
+### Основные отличия от обычной версии (без React)
 
 - В обычной версии мы вручную клонировали шаблоны, добавляли и удаляли элементы через append/remove, синхронизировали данные с localStorage после каждого действия. В React-версии мы описываем, как должен выглядеть интерфейс при заданном состоянии, а React сам обновляет DOM. Это уменьшает количество кода и исключает ошибки синхронизации данных и разметки.
 
@@ -21,7 +12,7 @@ Currently, two official plugins are available:
 
 - React по умолчанию экранирует текст, исключая XSS. Мы добавили защиту от добавления и сохранения пустых задач (как при создании, так и при редактировании). В оригинале такой проверки не было.
 
-## Важные детали реализации 
+### Важные детали реализации 
 
 - Инициализация состояния с загрузкой из localStorage
 

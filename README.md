@@ -7,10 +7,32 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+## Основные отличия от обычной версии (без React)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- В обычной версии мы вручную клонировали шаблоны, добавляли и удаляли элементы через append/remove, синхронизировали данные с localStorage после каждого действия. В React-версии мы описываем, как должен выглядеть интерфейс при заданном состоянии, а React сам обновляет DOM. Это уменьшает количество кода и исключает ошибки синхронизации данных и разметки.
 
-## Expanding the ESLint configuration
+- В оригинале задачи хранились и в DOM, и в localStorage, и приходилось писать дополнительные функции (getTasksFromDOM, saveTasks). В React все задачи хранятся в useState, а DOM – лишь производная от этого состояния. При каждом изменении списка (добавление, удаление, копирование, редактирование) мы обновляем состояние, а React автоматически перерисовывает интерфейс.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Вместо ручного вызова saveTasks после каждой операции, мы подписываемся на изменение состояния с помощью useEffect — теперь сохранение происходит автоматически при любом изменении списка.
+
+- Вместо одного файла, в котором были перемешаны все функции, мы выделили три независимых компонента: App (управление состоянием и общей логикой), TodoForm (форма добавления), TodoItem (отдельная задача). Это сделало код переиспользуемым, понятным и легким для тестирования.
+
+- В vanilla JS мы использовали document.createElement, cloneNode и работу с классами. В React вся разметка описывается внутри компонентов на JSX, что гораздо нагляднее и ближе к HTML.
+
+- React по умолчанию экранирует текст, исключая XSS. Мы добавили защиту от добавления и сохранения пустых задач (как при создании, так и при редактировании). В оригинале такой проверки не было.
+
+## Важные детали реализации 
+
+- Инициализация состояния с загрузкой из localStorage
+
+- Автосохранение через useEffect
+
+- Все операции со списком – иммутабельные
+
+- Компонент формы – controlled component
+
+- Редактирование через contentEditable с защитой
+
+- Правильные key при рендере списка
+
+- Вёрстка и стили полностью перенесены из оригинального проекта

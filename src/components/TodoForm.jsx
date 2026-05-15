@@ -1,3 +1,4 @@
+//предоставляет поле ввода и кнопку для создания новой задачи
 import { useState } from 'react';
 
 function TodoForm({ onAdd }) {

@@ -1,3 +1,4 @@
+//отображает текст задачи и три кнопки (редактировать, копировать, удалить)
 import { useRef } from 'react';
 
 function TodoItem({ text, onDelete, onCopy, onEdit }) {
